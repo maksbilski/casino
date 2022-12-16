@@ -70,6 +70,6 @@ class Player:
 
     def calculate_score(self):
         possible_score_values = self.scores_based_on_duplicates()
-        possible_score_values.append(self.score_if_number_are_odd())
+        possible_score_values.append(self.score_if_numbers_are_odd())
         possible_score_values.append(self.score_if_numbers_are_even())
         return max(possible_score_values)
