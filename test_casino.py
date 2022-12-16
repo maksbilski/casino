@@ -167,3 +167,17 @@ def test_indicate_winner():
     players = [player1, player2, player3, player4]
     casino1 = Casino(players)
     assert casino1.indicate_winner() == player4
+
+
+def test_indicate_winner_draw():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Mark')
+    player4 = Player('Joe')
+    player1.set_score(4)
+    player2.set_score(42)
+    player3.set_score(54)
+    player4.set_score(54)
+    players = [player1, player2, player3, player4]
+    casino1 = Casino(players)
+    assert not casino1.indicate_winner()
