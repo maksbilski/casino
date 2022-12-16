@@ -2,11 +2,25 @@ from random import randint
 from collections import Counter
 
 
+class NoPlayersError(Exception):
+    def __init__(self):
+        super().__init__("You can't create a casino without any players in it")
+
+
 class Casino:
+    '''
+    This is  a class representing a casino.
+
+    :raises NoPlayersEror: You can't create a casino without any players in it
+    :param player_list: A list containing instances of the Player class
+    :type player_list: list
+    '''
     def __init__(self, player_list):
         '''
         Constructor method.
         '''
+        if not player_list:
+            raise NoPlayersError
         self._player_list = player_list
 
     def roll_dice(self):
