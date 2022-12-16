@@ -12,6 +12,12 @@ class Casino:
     def roll_dice(self):
         return randint(1, 6)
 
+    def play(self):
+        for player in self._player_list:
+            dice_layout = []
+            for times in range(0, 4):
+                dice_layout.append(self.roll_dice())
+                player.set_dice_layout(dice_layout)
 
 class Player:
     def __init__(self, name):
@@ -25,6 +31,13 @@ class Player:
     @property
     def name(self):
         return self._name
+    
+    @property
+    def score(self):
+        return self._score 
+    
+    def set_dice_layout(self, new_dice_layout):
+        self._dice_layout = new_dice_layout
 
     def score_if_numbers_are_odd(self):
         for number in self._dice_layout:
