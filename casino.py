@@ -26,7 +26,7 @@ class Casino:
             player.set_score(player.calculate_score())
 
     def indicate_winner(self):
-        return max(self._player_list, key=lambda player: player.score())
+        return max(self._player_list, key=lambda player: player.score)
 
 
 class Player:
