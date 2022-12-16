@@ -16,7 +16,7 @@ class Casino:
 
     def roll_dice_four_times(self):
         dice_rolls = []
-        for times in range(0, 4):
+        for _ in range(0, 4):
             dice_rolls.append(self.roll_dice())
         return dice_rolls
 
