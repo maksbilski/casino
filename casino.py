@@ -10,18 +10,19 @@ class Casino:
         self._player_list = player_list
 
     def roll_dice(self):
+        '''
+        '''
         return randint(1, 6)
 
     def roll_dice_four_times(self):
-        dice_layout = []
+        dice_rolls = []
         for times in range(0, 4):
-            dice_layout.append(self.roll_dice())
-        return dice_layout
+            dice_rolls.append(self.roll_dice())
+        return dice_rolls
 
     def play(self):
         for player in self._player_list:
-            dice_layout = self.roll_dice_four_times()
-            player.set_dice_layout(dice_layout)
+            player.set_dice_layout(self.roll_dice_four_times())
             player.set_score(player.calculate_score())
 
     def indicate_winner(self):
