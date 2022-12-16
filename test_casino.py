@@ -2,7 +2,6 @@ from casino import Casino, Player # NOQA
 from pytest import MonkeyPatch # NOQA
 
 
-
 def test_player_create():
     player1 = Player('Mark')
     assert player1.name == 'Mark'
@@ -118,12 +117,53 @@ def test_roll_dice(monkeypatch):
 
 
 def test_play(monkeypatch):
-    def return_one():
+    def return_one(argument):
         return 1
     monkeypatch.setattr(Casino, 'roll_dice', return_one)
     player1 = Player('Mark')
     player2 = Player('Joe')
     players = [player1, player2]
     casino1 = Casino(players)
-    Casino.play()
-    assert player1.score
+    casino1.play()
+    assert player1.score == 7
+    assert player2.score == 7
+
+
+def test_play1(monkeypatch):
+    def return_one(argument):
+        return 1
+    monkeypatch.setattr(Casino, 'roll_dice', return_one)
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    players = [player1, player2]
+    casino1 = Casino(players)
+    casino1.play()
+    assert player1.score == 7
+    assert player2.score == 7
+
+
+def test_play2(monkeypatch):
+    def return_list1(argument):
+        return [3, 5, 6, 7]
+    monkeypatch.setattr(Casino, 'roll_dice_four_times', return_list1)
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    players = [player1, player2]
+    casino1 = Casino(players)
+    casino1.play()
+    assert player1.score == 0
+    assert player2.score == 0
+
+
+def test_indicate_winner():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Mark')
+    player4 = Player('Joe')
+    player1.set_score(4)
+    player2.set_score(42)
+    player3.set_score(43)
+    player4.set_score(54)
+    players = [player1, player2, player3, player4]
+    casino1 = Casino(players)
+    assert casino1.indicate_winner() == player4
