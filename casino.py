@@ -12,12 +12,17 @@ class Casino:
     def roll_dice(self):
         return randint(1, 6)
 
+    def roll_dice_four_times(self):
+        dice_layout = []
+        for times in range(0, 4):
+            dice_layout.append(self.roll_dice())
+        return dice_layout
+
     def play(self):
         for player in self._player_list:
-            dice_layout = []
-            for times in range(0, 4):
-                dice_layout.append(self.roll_dice())
-                player.set_dice_layout(dice_layout)
+            dice_layout = self.roll_dice_four_times()
+            player.set_dice_layout(dice_layout)
+            player.set_score(player.calculate_score())
 
     def indicate_winner(self):
         def key_function(): lambda player: player.score()
@@ -43,6 +48,9 @@ class Player:
 
     def set_dice_layout(self, new_dice_layout):
         self._dice_layout = new_dice_layout
+
+    def set_score(self, new_score):
+        self._score = new_score
 
     def score_if_numbers_are_even(self):
         for number in self._dice_layout:
