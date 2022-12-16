@@ -19,6 +19,11 @@ class Casino:
                 dice_layout.append(self.roll_dice())
                 player.set_dice_layout(dice_layout)
 
+    def indicate_winner(self):
+        def key_function(): lambda player: player.score()
+        return max(self._player_list, key=key_function)
+
+
 class Player:
     def __init__(self, name):
         '''
@@ -26,16 +31,16 @@ class Player:
         '''
         self._name = name
         self._dice_layout = None
-        self._score = None
+        self._score = 0
 
     @property
     def name(self):
         return self._name
-    
+
     @property
     def score(self):
-        return self._score 
-    
+        return self._score
+
     def set_dice_layout(self, new_dice_layout):
         self._dice_layout = new_dice_layout
 
