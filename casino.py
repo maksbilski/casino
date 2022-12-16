@@ -44,13 +44,13 @@ class Player:
     def set_dice_layout(self, new_dice_layout):
         self._dice_layout = new_dice_layout
 
-    def score_if_numbers_are_odd(self):
+    def score_if_numbers_are_even(self):
         for number in self._dice_layout:
             if number % 2 != 0:
                 return 0
         return sum(self._dice_layout) + 2
 
-    def score_if_numbers_are_even(self):
+    def score_if_numbers_are_odd(self):
         for number in self._dice_layout:
             if number % 2 == 0:
                 return 0
