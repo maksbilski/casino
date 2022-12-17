@@ -1,7 +1,7 @@
 from random import randint
 from collections import Counter
 
-
+NUMBER_OF_ROLLS = 4
 class NoPlayersError(Exception):
     '''
     Exception class for an error occuring when Casino class instance
@@ -37,7 +37,7 @@ class Casino:
         '''
         return randint(1, 6)
 
-    def roll_dice_four_times(self):
+    def roll_dice_multiple_times(self):
         '''
         Method that repeats the roll_dice method four times
 
@@ -45,7 +45,7 @@ class Casino:
         :rtype: list
         '''
         dice_rolls = []
-        for _ in range(0, 4):
+        for _ in range(0, NUMBER_OF_ROLLS):
             dice_rolls.append(self.roll_dice())
         return dice_rolls
 
