@@ -2,6 +2,8 @@ from random import randint
 from collections import Counter
 
 NUMBER_OF_ROLLS = 4
+
+
 class NoPlayersError(Exception):
     '''
     Exception class for an error occuring when Casino class instance
@@ -56,7 +58,7 @@ class Casino:
         to the output of roll_dice_four_times method.
         '''
         for player in self._player_list:
-            player.set_dice_layout(self.roll_dice_four_times())
+            player.set_dice_layout(self.roll_dice_multiple_times())
             player.set_score(player.calculate_score())
 
     def indicate_winner(self):

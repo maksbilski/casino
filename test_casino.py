@@ -145,7 +145,7 @@ def test_play1(monkeypatch):
 def test_play2(monkeypatch):
     def return_list1(argument):
         return [3, 5, 6, 7]
-    monkeypatch.setattr(Casino, 'roll_dice_four_times', return_list1)
+    monkeypatch.setattr(Casino, 'roll_dice_multiple_times', return_list1)
     player1 = Player('Mark')
     player2 = Player('Joe')
     players = [player1, player2]
