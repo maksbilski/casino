@@ -3,6 +3,10 @@ from collections import Counter
 
 
 class NoPlayersError(Exception):
+    '''
+    Exception class for an error occuring when Casino class instance
+    tries to be initialized with an empty player list.
+    '''
     def __init__(self):
         super().__init__("You can't create a casino without any players in it")
 
@@ -141,7 +145,7 @@ class Player:
 
     def scores_based_on_duplicates(self):
         '''
-        Method for calculating according values for situations,
+        Method for calculating according score values for situations,
         when a certain value appears 2, 3 or 4 times in a dice_layout
 
         :return: A list of score values that are resembling
@@ -166,7 +170,7 @@ class Player:
         to generate all posible score outcomes and selects the highest one.
 
         :return: Highest possible score value
-        :rtyep: int
+        :rtype: int
         '''
         possible_score_values = self.scores_based_on_duplicates()
         possible_score_values.append(self.score_if_numbers_are_odd())
