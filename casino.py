@@ -2,6 +2,11 @@ from random import randint
 from collections import Counter
 
 NUMBER_OF_ROLLS = 4
+SCORE_MULITPLIERS = {
+    2: 2,
+    3: 4,
+    4: 6
+}
 
 
 class NoPlayersError(Exception):
@@ -71,6 +76,8 @@ class Casino:
         # This next 4 lines are handling a situation when
         # 2 or more players have the same score and their scores
         # are the highest out of all players.
+        # This situation is a draw so there is no winner
+        # That's why this method returns None object if this situation occurs
         score_list = [player.score for player in self._player_list]
         highest_score = max(score_list)
         if Counter(score_list)[highest_score] > 1:
@@ -149,7 +156,7 @@ class Player:
             return sum(self._dice_layout) + 3
         return 0
 
-    def scores_based_on_duplicates(self):
+    def scores_based_on_numbers_times_of_occurence(self):
         '''
         Method for calculating according score values for situations,
         when a certain value appears 2, 3 or 4 times in a dice_layout
@@ -161,12 +168,8 @@ class Player:
         dice_number_count = dict(Counter(self._dice_layout))
         score_values = []
         for number, count in dice_number_count.items():
-            if count == 4:
-                score_values.append(number * 6)
-            if count == 3:
-                score_values.append(number * 4)
-            if count == 2:
-                score_values.append(number * 2)
+            if count in [2, 3, 4]:
+                score_values.append(number * SCORE_MULITPLIERS[count])
         return score_values
 
     def calculate_score(self):
@@ -178,7 +181,7 @@ class Player:
         :return: Highest possible score value
         :rtype: int
         '''
-        possible_score_values = self.scores_based_on_duplicates()
+        possible_score_values = self.scores_based_on_numbers_times_of_occurence() # NOQA
         possible_score_values.append(self.score_if_numbers_are_odd())
         possible_score_values.append(self.score_if_numbers_are_even())
         return max(possible_score_values)
