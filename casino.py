@@ -79,6 +79,12 @@ class Casino:
 
 
 class Player:
+    '''
+    This is a class representing a player that plays in the casino
+
+    :param name: Name of the player
+    :type name: string
+    '''
     def __init__(self, name):
         '''
         Constructor method
