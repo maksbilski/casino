@@ -133,10 +133,9 @@ class Player:
         :return: according score
         :rtype: int
         '''
-        for number in self._dice_layout:
-            if number % 2 != 0:
-                return 0
-        return sum(self._dice_layout) + 2
+        if all(number % 2 == 0 for number in self._dice_layout):
+            return sum(self._dice_layout) + 2
+        return 0
 
     def score_if_numbers_are_odd(self):
         '''
@@ -146,10 +145,9 @@ class Player:
         :return: according score
         :rtype: int
         '''
-        for number in self._dice_layout:
-            if number % 2 == 0:
-                return 0
-        return sum(self._dice_layout) + 3
+        if all(number % 2 != 0 for number in self._dice_layout):
+            return sum(self._dice_layout) + 3
+        return 0
 
     def scores_based_on_duplicates(self):
         '''
