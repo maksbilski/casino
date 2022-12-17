@@ -58,25 +58,25 @@ def test_score_if_numbers_are_odd4():
 def test_scores_based_on_duplicates1():
     player1 = Player('Mark')
     player1.set_dice_layout([2, 2, 5, 5])
-    assert player1.scores_based_on_duplicates() == [4, 10]
+    assert player1.scores_based_on_numbers_times_of_occurence() == [4, 10]
 
 
 def test_scores_based_on_duplicates2():
     player1 = Player('Mark')
     player1.set_dice_layout([3, 3, 3, 5])
-    assert player1.scores_based_on_duplicates() == [12]
+    assert player1.scores_based_on_numbers_times_of_occurence() == [12]
 
 
 def test_scores_based_on_duplicates3():
     player1 = Player('Mark')
     player1.set_dice_layout([5, 5, 5, 5])
-    assert player1.scores_based_on_duplicates() == [30]
+    assert player1.scores_based_on_numbers_times_of_occurence() == [30]
 
 
 def test_scores_based_on_duplicates4():
     player1 = Player('Mark')
     player1.set_dice_layout([1, 1, 1, 1])
-    assert player1.scores_based_on_duplicates() == [6]
+    assert player1.scores_based_on_numbers_times_of_occurence() == [6]
 
 
 def test_calculate_score1():
