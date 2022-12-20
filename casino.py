@@ -88,7 +88,20 @@ class Casino:
         '''
         for player in self._player_list:
             player.set_dice_layout(self.roll_dice_multiple_times())
-            player.set_score(player.calculate_score())
+
+    def is_draw(self):
+        '''
+        This method is checking if two or more players
+        have the highest scores.
+        This situation is a draw, so we can't indicate a winner
+        :return: True if a draw occures and False if it's not
+        :rtype: Bool
+        '''
+        score_list = [player.score for player in self._player_list]
+        highest_score = max(score_list)
+        if Counter(score_list)[highest_score] > 1:
+            return True
+        return False
 
     def indicate_winner(self):
         '''
@@ -102,9 +115,9 @@ class Casino:
         # are the highest out of all players.
         # This situation is a draw so there is no winner
         # That's why this method returns None object if this situation occurs
-        score_list = [player.score for player in self._player_list]
-        highest_score = max(score_list)
-        if Counter(score_list)[highest_score] > 1:
+        for player in self._player_list:
+            player.set_score(player.calculate_score())
+        if self.is_draw():
             return None
         return max(self._player_list, key=lambda player: player.score)
 
