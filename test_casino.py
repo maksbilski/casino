@@ -1,10 +1,55 @@
+from casino import PlayerAlreadyAddedError, PlayerNotInCasinoError
 from casino import Casino, Player # NOQA
-from pytest import MonkeyPatch # NOQA
+from pytest import MonkeyPatch, raises # NOQA
 
 
 def test_player_create():
     player1 = Player('Mark')
     assert player1.name == 'Mark'
+
+
+def test_casino_create():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2, player3])
+    assert casino1._player_list == [player1, player2, player3]
+
+
+def test_casino_add_player():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2])
+    casino1.add_player(player3)
+    assert casino1._player_list == [player1, player2, player3]
+
+
+def test_casino_add_player_error():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2, player3])
+    with raises(PlayerAlreadyAddedError):
+        casino1.add_player(player3)
+
+
+def test_casino_remove_player():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2, player3])
+    casino1.remove_player(player3)
+    assert casino1._player_list == [player1, player2]
+
+
+def test_casino_remove_player_error():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2])
+    with raises(PlayerNotInCasinoError):
+        casino1.remove_player(player3)
 
 
 def test_score_if_numbers_are_even1():
@@ -144,7 +189,7 @@ def test_play1(monkeypatch):
 
 def test_play2(monkeypatch):
     def return_list1(argument):
-        return [3, 5, 6, 7]
+        return [3, 5, 6, 4]
     monkeypatch.setattr(Casino, 'roll_dice_multiple_times', return_list1)
     player1 = Player('Mark')
     player2 = Player('Joe')
@@ -153,6 +198,19 @@ def test_play2(monkeypatch):
     casino1.play()
     assert player1.score == 0
     assert player2.score == 0
+
+
+def test_play3(monkeypatch):
+    def return_list1(argument):
+        return [6, 6, 6, 2]
+    monkeypatch.setattr(Casino, 'roll_dice_multiple_times', return_list1)
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    players = [player1, player2]
+    casino1 = Casino(players)
+    casino1.play()
+    assert player1.score == 24
+    assert player2.score == 24
 
 
 def test_indicate_winner():

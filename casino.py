@@ -9,13 +9,22 @@ SCORE_MULITPLIERS = {
 }
 
 
-class NoPlayersError(Exception):
+class PlayerNotInCasinoError(Exception):
     '''
-    Exception class for an error occuring when Casino class instance
-    tries to be initialized with an empty player list.
+    Exception class representing an error that is raised
+    when you want to remove a player that isn't in the casino.
     '''
     def __init__(self):
-        super().__init__("You can't create a casino without any players in it")
+        super().__init__("You can't remove that player because he is not in the casino.") # NOQA
+
+
+class PlayerAlreadyAddedError(Exception):
+    '''
+    Exception class representing an error that is raised
+    when you want to add a player to the casino that was already added
+    '''
+    def __init__(self):
+        super().__init__("You can't add this player. He is already in the casino.") # NOQA
 
 
 class Casino:
@@ -30,9 +39,24 @@ class Casino:
         '''
         Constructor method.
         '''
-        if not player_list:
-            raise NoPlayersError
         self._player_list = player_list
+
+    def add_player(self, new_player):
+        '''
+        Method for adding players to the casino.
+        '''
+        if new_player in self._player_list:
+            raise PlayerAlreadyAddedError
+        self._player_list.append(new_player)
+
+    def remove_player(self, removed_player):
+        '''
+        Method for removing players from the casino.
+        '''
+        try:
+            self._player_list.remove(removed_player)
+        except ValueError:
+            raise PlayerNotInCasinoError
 
     def roll_dice(self):
         '''
