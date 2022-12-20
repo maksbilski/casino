@@ -8,61 +8,16 @@ def test_player_create():
     assert player1.name == 'Mark'
 
 
-def test_casino_create():
+def test_player_set_score():
     player1 = Player('Mark')
-    player2 = Player('Joe')
-    player3 = Player('Jacob')
-    casino1 = Casino([player1, player2, player3])
-    assert casino1._player_list == [player1, player2, player3]
+    player1.set_score(20)
+    assert player1._score == 20
 
 
-def test_casino_is_draw():
+def test_player_set_dice_layout():
     player1 = Player('Mark')
-    player2 = Player('Joe')
-    player3 = Player('Mark')
-    player4 = Player('Joe')
-    player1.set_score(16)
-    player2.set_score(20)
-    player3.set_score(30)
-    player4.set_score(30)
-    casino1 = Casino([player1, player2, player3, player4])
-    assert casino1.is_draw()
-
-
-def test_casino_add_player():
-    player1 = Player('Mark')
-    player2 = Player('Joe')
-    player3 = Player('Jacob')
-    casino1 = Casino([player1, player2])
-    casino1.add_player(player3)
-    assert casino1._player_list == [player1, player2, player3]
-
-
-def test_casino_add_player_error():
-    player1 = Player('Mark')
-    player2 = Player('Joe')
-    player3 = Player('Jacob')
-    casino1 = Casino([player1, player2, player3])
-    with raises(PlayerAlreadyAddedError):
-        casino1.add_player(player3)
-
-
-def test_casino_remove_player():
-    player1 = Player('Mark')
-    player2 = Player('Joe')
-    player3 = Player('Jacob')
-    casino1 = Casino([player1, player2, player3])
-    casino1.remove_player(player3)
-    assert casino1._player_list == [player1, player2]
-
-
-def test_casino_remove_player_error():
-    player1 = Player('Mark')
-    player2 = Player('Joe')
-    player3 = Player('Jacob')
-    casino1 = Casino([player1, player2])
-    with raises(PlayerNotInCasinoError):
-        casino1.remove_player(player3)
+    player1.set_dice_layout([2, 4, 6, 4])
+    assert player1._dice_layout == [2, 4, 6, 4]
 
 
 def test_score_if_numbers_are_even1():
@@ -167,16 +122,61 @@ def test_calculate_score_zero_output():
     assert player1.calculate_score() == 0
 
 
-def test_player_set_score():
+def test_casino_create():
     player1 = Player('Mark')
-    player1.set_score(20)
-    assert player1._score == 20
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2, player3])
+    assert casino1._player_list == [player1, player2, player3]
 
 
-def test_player_set_dice_layout():
+def test_casino_is_draw():
     player1 = Player('Mark')
-    player1.set_dice_layout([2, 4, 6, 4])
-    assert player1._dice_layout == [2, 4, 6, 4]
+    player2 = Player('Joe')
+    player3 = Player('Mark')
+    player4 = Player('Joe')
+    player1.set_score(16)
+    player2.set_score(20)
+    player3.set_score(30)
+    player4.set_score(30)
+    casino1 = Casino([player1, player2, player3, player4])
+    assert casino1.is_draw()
+
+
+def test_casino_add_player():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2])
+    casino1.add_player(player3)
+    assert casino1._player_list == [player1, player2, player3]
+
+
+def test_casino_add_player_error():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2, player3])
+    with raises(PlayerAlreadyAddedError):
+        casino1.add_player(player3)
+
+
+def test_casino_remove_player():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2, player3])
+    casino1.remove_player(player3)
+    assert casino1._player_list == [player1, player2]
+
+
+def test_casino_remove_player_error():
+    player1 = Player('Mark')
+    player2 = Player('Joe')
+    player3 = Player('Jacob')
+    casino1 = Casino([player1, player2])
+    with raises(PlayerNotInCasinoError):
+        casino1.remove_player(player3)
 
 
 def test_roll_dice(monkeypatch):
